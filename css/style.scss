@@ -180,6 +180,14 @@ div.tooltip-frame {
   width: 95%;
 }
 
+.remark {
+  border: 1px solid #CCCCCC;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  white-space: normal;
+}
+
 .important-figure {
   font-size: 1.25vw;
   font-weight: bold;
@@ -192,10 +200,7 @@ div.tooltip-frame {
 
 //--------- Mobile Site -----------
 
-@media only screen and (max-device-width: 850px) {
-  body {
-    font-size: 36px;
-  }
+@media only screen and (max-width: 850px) {
 
   .left,
   .right {
@@ -214,14 +219,14 @@ div.tooltip-frame {
 
 }
 
-@media only screen and (min-device-width: 850px) {
+@media only screen and (min-width: 850px) {
   .left,
   .right {
     display: inline-block;
   }
 }
 
-@media only screen and (min-device-width: 850px) and (max-device-width: 1024px) {
+@media only screen and (min-width: 850px) and (max-width: 1024px) {
   body {
     font-size: 14px;
   }

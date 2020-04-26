@@ -97,8 +97,8 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .attr("dy", -37)
         .attr("text-anchor", "end")
         .style("font-size", "0.4em")
-        .text(function (d) { //average year-by-year growth* in percentage of students
-            return "Average";
+        .text(function (d) { 
+            return "Average change";
         })
 
     yAxisTopic.append("tspan")
@@ -109,7 +109,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .attr("text-anchor", "end")
         .style("font-size", "0.4em")
         .text(function (d) {
-            return "year-by-year growth";
+            return "per year";
         })
 
     yAxisTopic.append("tspan")
@@ -120,7 +120,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .attr("text-anchor", "end")
         .style("font-size", "0.4em")
         .text(function (d) {
-            return "in percentage";
+            return "in the percentage";
         })
 
     yAxisTopic.append("tspan")
@@ -327,11 +327,11 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                 tooltip.html("<span class='important-figure'>" + subjectArea + "<br/>" +
                     percentDisplay + "%</span><br/><br/>" +
                     "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject<br/>" +
-                    "areas which had the highest average<br/>" +
-                    "year-per-year growth in percentage<br/>" +
-                    "of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
-                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students<br/>" +
-                    "in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
+                    "areas which saw the most positive<br/>" +
+                    "average change per year in the<br/>" +
+                    "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
+                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b><br/>" +
+                    "students in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
                     "<hr class='line-hr-tooltip'>" +
                     "<b>Percentage of " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " students<br/>" +
                     "among all " + (level == "All" ? "HE" : level.toLowerCase().slice(4)) + " students<br/>" +
@@ -431,11 +431,11 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                 tooltip.html("<span class='important-figure'>" + subjectArea + "<br/>" +
                     percentDisplay + "%</span><br/><br/>" +
                     "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject<br/>" +
-                    "areas which had the highest average<br/>" +
-                    "year-per-year growth in percentage<br/>" +
-                    "of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
-                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students<br/>" +
-                    "in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
+                    "areas which saw the most positive<br/>" +
+                    "average change per year in the<br/>" +
+                    "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
+                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b><br/>" +
+                    "students in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
                     "<hr class='line-hr-tooltip'>" +
                     "<b>Percentage of " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " students<br/>" +
                     "among all " + (level == "All" ? "HE" : level.toLowerCase().slice(4)) + " students<br/>" +
