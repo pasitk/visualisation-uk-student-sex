@@ -1,0 +1,220 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: rgba(255, 255, 255, 0.75);
+  font-size: 16px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+#body-index {
+  background-color: #FFF;
+  position: relative;
+  padding: 0;
+  justify-content: center;
+  align-items: flex-end;
+  height: inherit;
+}
+
+.content-page {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+header {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 1vw;
+}
+
+#map path {
+  fill: #666666;
+  stroke: #999999;
+}
+
+#map path:hover {
+  fill: #CC0000;
+}
+
+.left,
+.right {
+  padding: 1em;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.right {
+  width: 50%;
+}
+
+.options {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.options > div {
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+.options > div.label {
+  width: 49%;
+  text-align: right;
+}
+.options > div.selector {
+  width: 49%;
+  text-align: left;
+  vertical-align: top;
+}
+
+.left {
+  width: 50%;
+}
+
+.vis-name {
+  font-weight: bold;
+  font-size: 2em;
+  color: #666666;
+}
+
+.vis-description {
+  font-weight: normal;
+  color: #666666;
+  font-size: 1.2em;
+}
+
+.instruction {
+  padding: 0.5vw;
+  margin-bottom: 0.5vw;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.sub-instruction {
+  padding: 0.5vw;
+  margin-bottom: 0.5vw;
+  font-size: 1.25em;
+}
+
+.red {
+  color: #FF9999;
+}
+
+.year-slider {
+  width: 50%;
+  margin: 0.25em auto;
+}
+
+.year-label {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.year-label li {
+  display: inline-block;
+  width: 19%;
+  text-align: center;
+}
+
+.slider {
+  width: 80%;
+}
+
+.subunit-label {
+  font-weight: lighter;
+  font-size: 0.7em;
+  fill: #666666;
+}
+
+text {
+  pointer-events: none;
+}
+
+div.tooltip-frame {
+  position: absolute;
+  text-align: left;
+  width: fit-content;
+  padding: 0.5em;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid black;
+  box-shadow: 0px 5px 10px -3px #999999;
+  pointer-events: none;
+  font-size: 1vw;
+}
+
+.axis-grid line {
+  stroke: #EEEEEE;
+}
+
+.x.axis {
+  font-size: 0.5em;
+}
+
+.line-hr {
+  border: 1px dotted #CCCCCC;
+  width: 80%;
+}
+
+.line-hr-tooltip {
+  border-style: double;
+  border-color: #CCCCCC;
+  width: 95%;
+}
+
+.important-figure {
+  font-size: 1.25vw;
+  font-weight: bold;
+}
+
+.tooltip-frame ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media only screen and (max-device-width: 850px) {
+  body {
+    font-size: 36px;
+  }
+
+  .left,
+.right {
+    display: block;
+    width: 100%;
+  }
+
+  .subunit-label {
+    font-size: 0.5em;
+  }
+
+  .story .content,
+.soon {
+    width: 100%;
+  }
+}
+@media only screen and (min-device-width: 850px) {
+  .left,
+.right {
+    display: inline-block;
+  }
+}
+@media only screen and (min-device-width: 850px) and (max-device-width: 1024px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

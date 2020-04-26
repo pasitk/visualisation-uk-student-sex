@@ -1,0 +1,216 @@
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet">
+    <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="https://unpkg.com/d3-sankey@0.4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.1.0/d3-annotation.min.js"></script>
+    <script src="js/vis0.js"></script>
+    <title>CMT218 Assignment 2</title>
+    <style>
+        .node rect {
+            cursor: move;
+            fill-opacity: .9;
+            shape-rendering: crispEdges;
+        }
+    </style>
+</head>
+
+<body id="body-index">
+    <header>
+        <div class="vis-name">Sex of Higher Education Students in the UK : Academic Year 2018/19</div>
+        <!-- <div class="vis-description">Where are they from, and how popular is each subject area?</div> -->
+        <div class="year-slider">
+            <input type="hidden" id="destination" value="All" onchange="redrawAll()">
+            <input type="hidden" id="sex" value="Male" onchange="redrawAll()">
+        </div>
+    </header>
+    <div class="content-page">
+        <div class="left">
+            <div class="instruction">
+                Overall
+            </div>
+            <div class="sub-instruction">
+                In each country in the UK, how many female, male, and other-sex students were there?
+            </div>
+        </div>
+        <div class="right">
+            <div id="sankey">
+            </div>
+        </div>
+    </div>
+    <hr class="line-hr">
+    <div class="content-page">
+        <div class="left">
+            <div class="instruction">
+                Trends of 'percentage of the students in each sex' in HE providers
+                <!-- Each higher education provider had different proportion of students in each sex. -->
+                <!-- How were the proportions of students, categorised by sex 
+                in each HE provider? (filtered by country and level of study) -->
+            </div>
+            <div class="sub-instruction">
+                <div>Let's select the level of study, country of HE provider, and sex of students. Then the chart on the right-hand side will display how many HE providers (only in selected country) did their proportion of students in level and sex chosen fall into each percentage interval. (from 100% of students in the same HE provider and same level)</div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="options">
+                <div class="label">
+                    <label for="level-2">Level of study</label>
+                </div>
+                <div class="selector">
+                    <select id="level-2" onchange="redrawChart2();">
+                        <option value="All">All</option>
+                        <option value="All undergraduate">Undergraduate</option>
+                        <option value="All postgraduate">Postgraduate</option>
+                    </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label for="countries-2">Country of HE Provider</label>
+                </div>
+                <div class="selector">
+                    <select id="countries-2" onchange="redrawChart2();">
+                        <option value="All">All of the UK</option>
+                        <option value="England">England</option>
+                        <option value="Wales">Wales</option>
+                        <option value="Scotland">Scotland</option>
+                        <option value="Northern Ireland">Northern Ireland</option>
+                    </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label for="sex-2">Sex</label>
+                </div>
+                <div class="selector">
+                    <select id="sex-2" onchange="redrawChart2();">
+                        <option value="Female">female</option>
+                        <option value="Male">male</option>
+                        <option value="Other">other-sex</option>
+                    </select>
+                </div>
+            </div>
+            <div class="r-top-vis" id="vis-2"></div>
+        </div>
+    </div>
+    <hr class="line-hr">
+    <div class="content-page">
+        <div class="left">
+            <div class="instruction">
+                Top 5 subject areas which have the highest percentage of students in each sex
+            </div>
+            <div class="sub-instruction">
+                <div>Let's select the students' level of study, country of HE provider, and sex. Then the chart on the right-hand side will display the top 5 subject areas which have the highest percentage of students in the selected country, level of study, and sex.
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="options">
+                <div class="label">
+                    <label for="level-3">Level of study</label>
+                </div>
+                <div class="selector">
+                    <select id="level-3" onchange="redrawChart3();">
+                        <option value="All">All</option>
+                        <option value="All undergraduate">Undergraduate</option>
+                        <option value="All postgraduate">Postgraduate</option>
+                    </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label for="countries-3">Country of HE Provider</label>
+                </div>
+                <div class="selector">
+                    <select id="countries-3" onchange="redrawChart3();">
+                        <option value="All">All of the UK</option>
+                        <option value="England">England</option>
+                        <option value="Wales">Wales</option>
+                        <option value="Scotland">Scotland</option>
+                        <option value="Northern Ireland">Northern Ireland</option>
+                    </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label for="sex-3">Sex</label>
+                </div>
+                <div class="selector">
+                    <select id="sex-3" onchange="redrawChart3();">
+                        <option value="Female">female</option>
+                        <option value="Male">male</option>
+                        <option value="Other">other-sex</option>
+                    </select>
+                </div>
+            </div>
+            <div class="r-top-vis" id="vis-3"></div>
+        </div>
+    </div>
+    <hr class="line-hr">
+    <div class="content-page">
+        <div class="left">
+            <div class="instruction">
+                Top subject areas which saw the highest average year-by-year growth in the percentage of students in each sex over five years.
+            </div>
+            <div class="sub-instruction">
+                <div>Let's select the students' level of study, country of HE provider, and sex. Then the chart on the right-hand side will display top subject areas which saw highest average year-by-year growth in the percentage of students in selected sex over five years from academic year 2014/15 to 2018/19 (only in the chosen country, and level of study).
+                    <br/><br/>
+                </div>
+                <div>
+                    Remark: In some criteria, there were less than five subject areas which saw average year-by-year growth in the percentage of students, which means the other subject areas remained saw 'shrinkage' not growth.
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="options">
+                <div class="label">
+                    <label for="level-4">Level of study</label>
+                </div>
+                <div class="selector">
+                    <select id="level-4" onchange="redrawChart4();">
+                        <option value="All">All</option>
+                        <option value="All undergraduate">Undergraduate</option>
+                        <option value="All postgraduate">Postgraduate</option>
+                    </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label for="countries-4">Country of HE Provider</label>
+                </div>
+                <div class="selector">
+                    <select id="countries-4" onchange="redrawChart4();">
+                        <option value="All">All of the UK</option>
+                        <option value="England">England</option>
+                        <option value="Wales">Wales</option>
+                        <option value="Scotland">Scotland</option>
+                        <option value="Northern Ireland">Northern Ireland</option>
+                    </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label for="sex-4">Sex</label>
+                </div>
+                <div class="selector">
+                    <select id="sex-4" onchange="redrawChart4();">
+                        <option value="Female">female</option>
+                        <option value="Male">male</option>
+                        <option value="Other">other-sex</option>
+                    </select>
+                </div>
+            </div>
+            <div class="r-top-vis" id="vis-4"></div>
+        </div>
+    </div>
+    <hr class="line-hr">
+    <script src="js/vis1.js"></script>
+    <script src="js/vis2.js"></script>
+    <script src="js/vis3.js"></script>
+    <script src="js/vis4.js"></script>
+</body>
+
+</html>
