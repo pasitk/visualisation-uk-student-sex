@@ -1,3 +1,8 @@
+function redrawChart1() {
+    var reloadChart1Event = new Event('reloadChart1Event');
+    document.dispatchEvent(reloadChart1Event);
+}
+
 function redrawChart2() {
     var reloadChart2Event = new Event('reloadChart2Event');
     document.dispatchEvent(reloadChart2Event);

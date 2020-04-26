@@ -5,7 +5,7 @@ var margin = {
         top: 75,
         right: 80,
         bottom: 30,
-        left: 75
+        left: 80
     },
     width = 600 - margin.left - margin.right,
     height = 650 - margin.top - margin.bottom;
@@ -18,7 +18,7 @@ var formatNumber = d3.format(",.0f"), // zero decimal places
         return formatNumber(d) + " " + units;
     },
     // color = d3.scaleOrdinal(d3.schemeCategory10);
-    color = {
+    colorChart1 = {
         "England" : "#186A3B",
         "Scotland" : "#239B56",
         "Wales" : "#27AE60",
@@ -135,7 +135,7 @@ topic2.append("tspan")
 // Set the sankey diagram properties
 var sankey = d3.sankey()
     .nodeWidth(nodeWidthNum)
-    .nodePadding(20)
+    .nodePadding(25)
     .size([width, height]);
 
 var path = sankey.link();
@@ -163,9 +163,21 @@ startingAllocationTextGroup = {
     2: "postgraduate"
 };
 
+var swap = function (array, posX, posY) {
+    var temp = array[posX];
+    array[posX] = array[posY];
+    array[posY] = temp;
+};
+
 d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
-    // console.log(data);
     if (error) throw error;
+
+    swap(data, 3, 6);
+    swap(data, 4, 7);
+    swap(data, 5, 8);
+    swap(data, 6, 9);
+    swap(data, 7, 10);
+    swap(data, 8, 11);
 
     graph = {
         "nodes": [],
@@ -223,7 +235,7 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
     sankey
         .nodes(graph.nodes)
         .links(graph.links)
-        .layout(32);
+        .layout(0);
 
     /*
     *   Tooltip 2nd Part
@@ -273,7 +285,7 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
                     .duration(200)
                     .style("opacity", 1);
                 tooltip.html("<b>" + formatNumber(d.value) + " students</b> " +
-                    "or equals <b>" + formatTwoDecimalPlaces(d.value / totalNum * 100) + "%</b><br/>of <b>" + startingAllocationText + "</b> students in <b>" + d.source.name + "</b><br/>answered that they are <b>" + (d.target.name == "Other" ? "other-sex" : d.target.name.toLowerCase()) + "</b> students");
+                    "or equals <b>" + formatTwoDecimalPlaces(d.value / totalNum * 100) + "%</b> of <b>" + startingAllocationText + "</b> students in <b>" + d.source.name + "</b> answered that they are <b>" + (d.target.name == "Other" ? "other-sex" : d.target.name.toLowerCase()) + "</b> students");
                 tooltip.style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px")
                     .style("font-size", "0.8em");
@@ -311,10 +323,10 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         })
         .attr("width", sankey.nodeWidth())
         .style("fill", function (d) {
-            return d.color = color[d.name];
+            return d.color = colorChart1[d.name];
         })
         .style("stroke", function (d) {
-            return d3.rgb(d.color).darker(2);
+            return d3.rgb(colorChart1[d.name]);
         })
         .append("title")
         .text(function (d) {
@@ -328,7 +340,7 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         .attr("y", function (d) {
             return d.dy / 2;
         })
-        .attr("dy", "-0.1em")
+        .attr("dy", "-0.2em")
         .attr("text-anchor", "start")
         .attr("transform", null)
         .text(function (d) {
@@ -341,7 +353,7 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         .filter(function (d) {
             return d.x < width / 2;
         })
-        .attr("dy", "-0.1em")
+        .attr("dy", "-0.2em")
         .attr("x", -6)
         .attr("text-anchor", "end");
 
@@ -365,14 +377,10 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         .attr("x", -6)
         .attr("text-anchor", "end");
 
-    document.addEventListener("reloadAllEvent", function () {
-        var ele = document.getElementsByName('level');
-        for (i = 0; i < ele.length; i++) {
-            if (ele[i].checked) {
-                update(parseInt(ele[i].value));
-                startingAllocationText = startingAllocationTextGroup[i];
-            }
-        }
+    document.addEventListener("reloadChart1Event", function () {
+        var levelDropdown = document.getElementById('level-1');
+        update(parseInt(levelDropdown.selectedIndex));
+        startingAllocationText = startingAllocationTextGroup[levelDropdown.selectedIndex];
     })
 
     function update(type) {
@@ -392,9 +400,9 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
             .nodes(graph.nodes)
             .links(graph.links)
             .size([width, height])
-            .layout(32);
+            .layout(0);
 
-        d3.selectAll(".link")
+        svg.selectAll(".link")
             .data(graph.links)
             .attr("d", path)
             .attr("id", function (d, i) {
@@ -412,16 +420,16 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
                 return b.dy - a.dy;
             });
 
-        d3.selectAll(".node").attr("transform", function (d) {
+        svg.selectAll(".node").attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         });
 
-        d3.selectAll("rect")
+        svg.selectAll("rect")
             .attr("height", function (d) {
                 return d.dy;
             })
 
-        d3.selectAll(".rect-value")
+        svg.selectAll(".rect-value")
             .transition()
             .duration(200)
             .attr("fill-opacity",0.25)

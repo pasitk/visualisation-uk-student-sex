@@ -19,8 +19,14 @@ d3.csv('dataset/gender-by-provider.csv', function (data) {
         level = levelDropdown.options[levelDropdown.selectedIndex].value;
         var countryDropdown = document.getElementById('countries-2');
         country = countryDropdown.options[countryDropdown.selectedIndex].value;
-        var sexDropdown = document.getElementById('sex-2');
-        sex = sexDropdown.options[sexDropdown.selectedIndex].value;
+        // var sexDropdown = document.getElementById('sex-2');
+        // sex = sexDropdown.options[sexDropdown.selectedIndex].value;
+        var sexRadioBtn = document.getElementsByName('sex-2');
+        for (i = 0; i < sexRadioBtn.length; i++) {
+            if (sexRadioBtn[i].checked) {
+                sex = sexRadioBtn[i].value;
+            }
+        }
 
         update();
     });
@@ -202,27 +208,25 @@ d3.csv('dataset/gender-by-provider.csv', function (data) {
 
         /* End of referenced code : Foundation code for Histogram */
 
-        // console.log(bins)
-
         if (bins.length == 1 && bins[0].x0 == 0 && bins[0].x1 == 0) {
-            d3.select("#vis2-no-data-msg-1")
+            svg.select("#vis2-no-data-msg-1")
                 .transition()
                 .text("There are no HE providers " + "in " + (country == "All" ? "the UK" : country))
                 .style("opacity", 1);
-            d3.select("#vis2-no-data-msg-2")
+            svg.select("#vis2-no-data-msg-2")
                 .transition()
                 .text("which have " + (sex == "Other" ? "other-sex" : sex.toLowerCase()))
                 .style("opacity", 1);
-            d3.select("#vis2-no-data-msg-3")
+            svg.select("#vis2-no-data-msg-3")
                 .transition()
                 .text((level == "All" ? "HE" : level == "All undergraduate" ? "undergraduate" : "postgraduate") + " students")
                 .style("opacity", 1);
 
             y_Scale.domain([0, 0])
         } else {
-            d3.select("#vis2-no-data-msg-1").transition().style("opacity", 0);
-            d3.select("#vis2-no-data-msg-2").transition().style("opacity", 0);
-            d3.select("#vis2-no-data-msg-3").transition().style("opacity", 0);
+            svg.select("#vis2-no-data-msg-1").transition().style("opacity", 0);
+            svg.select("#vis2-no-data-msg-2").transition().style("opacity", 0);
+            svg.select("#vis2-no-data-msg-3").transition().style("opacity", 0);
 
             y_Scale.domain([0, d3.max(bins, function (d) {
                 return d.length;
@@ -292,23 +296,40 @@ d3.csv('dataset/gender-by-provider.csv', function (data) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
-                tooltip.html("There " + (d.length == 1 ? "is " : "are ") + "<b>" + d.length + "</b> HE provider" + (d.length == 1 ? "" : "s") + " in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
-                    "<br/> which <b>" + d.x0 + "-" + d.x1 + "%</b> of " + (d.length == 1 ? "its <b>" : "their <b>") + (level == "All" ? "all HE" : level.toLowerCase()) + "</b> students <br/>" +
-                    "are <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + "</b>");
-                tooltip.style("left", (d3.event.pageX)+5 + "px")
-                    .style("top", (d3.event.pageY)-25 + "px")
+                tooltip.html("There " + (d.length == 1 ? "is " : "are ") + "<b>" + d.length + "</b> HE provider" + (d.length == 1 ? "" : "s") + " in <b>" + (country == "All" ? "the UK" : country) + "</b> " +
+                    "which <b>" + d.x0 + "-" + d.x1 + "%</b> of " + (d.length == 1 ? "its " : "their ") +
+                    "<b>" + (level == "All" ? "all HE" : level.toLowerCase()) + "</b> students " +
+                    "are <b>" + (sex == "Other" ? "other-sex students" : sex.toLowerCase()) + "</b><br/><br/>" +
+                    "<i>Click to see the names of<br/>HE providers in this group.</i>"
+                );
+                tooltip.style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY) - 50 + "px")
                     .style("border-color", color[sex]);
                 d3.select(this).attr("fill", function (d) {
-                    return colorHover[sex];
-                });
+                        return colorHover[sex];
+                    })
+                    .style("cursor", "pointer");
             })
             .on("mouseout", function (d) {
                 tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
                 d3.select(this).attr("fill", function (d) {
-                    return color[sex];
+                        return color[sex];
+                    })
+                    .style("cursor", "normal");
+            })
+            .on("click", function (d) {
+                var allProvider = d.map(function (row) {
+                    return row['HE provider'];
                 });
+
+                var allProviderText = "<span class='provider-header'>" +
+                    "HE provider" + (allProvider.length == 1 ? "" : "s") + " in " +
+                    (country == "All" ? "the UK" : country) + " which " + d.x0 + "-" + d.x1 + "%</b> of their " +
+                    (level == "All" ? "all HE" : level.toLowerCase()) + "</b> students are " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) +
+                    "</span><br/><br/>" + allProvider.join(" | ");
+                d3.select("#example-chart-2").html(allProviderText);
             });
         /* End of referenced code : Tooltip 2nd Part */
 
@@ -324,7 +345,7 @@ d3.csv('dataset/gender-by-provider.csv', function (data) {
                 return x_Scale(d.x0) + 1;
             })
             .attr("width", function (d) {
-                if (x_Scale(d.x1) - x_Scale(d.x0) - 1 < 0) { 
+                if (x_Scale(d.x1) - x_Scale(d.x0) - 1 < 0) {
                     return 0;
                 } else {
                     return x_Scale(d.x1) - x_Scale(d.x0) - 1;

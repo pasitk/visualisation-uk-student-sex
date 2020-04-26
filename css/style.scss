@@ -20,6 +20,10 @@ body {
   margin: 0;
 }
 
+select {
+  font-size: 0.9rem;
+}
+
 #body-index {
   background-color: #FFF;
   position: relative;
@@ -65,7 +69,6 @@ header {
 }
 
 .options {
-  font-size: 0.8em;
   font-weight: bold;
 
   > div {
@@ -73,14 +76,28 @@ header {
     margin-bottom: 0.5em;
 
     &.label {
-      width: 49%;
+      width: 36%;
       text-align: right;
     }
 
+    &.label-chart1 {
+      width: 36%;
+      text-align: right;
+      margin-bottom: 1em;
+    }
+
     &.selector {
-      width: 49%;
+      width: 60%;
       text-align: left;
       vertical-align: top;
+      white-space: nowrap;
+    }
+
+    &.selector-chart1 {
+      width: 60%;
+      text-align: left;
+      vertical-align: top;
+      margin-bottom: 1em;
     }
   }
 }
@@ -112,6 +129,32 @@ header {
   padding: 0.5vw;
   margin-bottom: 0.5vw;
   font-size: 1.25em;
+}
+
+#example-chart-2 {
+  font-size: 0.7em;
+  height: 10em;
+  overflow-y: scroll;
+  color: #666666;
+  line-height: 1.5em;
+  box-shadow: 0px 5px 10px -3px #999999;
+}
+
+#remark-chart-4 {
+  font-size: 0.7em;
+  color: #666666;
+  box-shadow: 0px 5px 10px -3px #999999;
+}
+
+.provider-header {
+  font-size: 1.2em;
+  color: #660000;
+  font-weight: bold;
+}
+
+#example-chart-instruction {
+  color: #660000;
+  font-style: italic;
 }
 
 .red {
@@ -152,7 +195,7 @@ text {
 div.tooltip-frame {
   position: absolute;
   text-align: left;
-  width: fit-content;
+  width: 16vw;
   padding: 0.5em;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 1);
@@ -198,9 +241,28 @@ div.tooltip-frame {
   margin-bottom: 0;
 }
 
+.female {
+  color: #ffa372;
+  margin-right: 1em;
+}
+
+.male {
+  color: #0f4c81;
+  margin-right: 1em;
+}
+
+.other{
+  color: #999999;
+  margin-right: 1em;
+}
+
 //--------- Mobile Site -----------
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-device-width: 850px) {
+
+  body {
+    font-size: 20px;
+  }
 
   .left,
   .right {
@@ -217,17 +279,15 @@ div.tooltip-frame {
     width: 100%;
   }
 
+  svg {
+    font-size: 16px;
+  }
+
 }
 
-@media only screen and (min-width: 850px) {
+@media only screen and (min-device-width: 850px) {
   .left,
   .right {
     display: inline-block;
-  }
-}
-
-@media only screen and (min-width: 850px) and (max-width: 1024px) {
-  body {
-    font-size: 14px;
   }
 }

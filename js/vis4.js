@@ -30,8 +30,13 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         level = levelDropdown.options[levelDropdown.selectedIndex].value;
         var countryDropdown = document.getElementById('countries-4');
         country = countryDropdown.options[countryDropdown.selectedIndex].value;
-        var sexDropdown = document.getElementById('sex-4');
-        sex = sexDropdown.options[sexDropdown.selectedIndex].value;
+
+        var sexRadioBtn = document.getElementsByName('sex-4');
+        for (i = 0; i < sexRadioBtn.length; i++) {
+            if (sexRadioBtn[i].checked) {
+                sex = sexRadioBtn[i].value;
+            }
+        }
 
         update();
     });
@@ -231,30 +236,30 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         });
 
         if (maxDomainY == undefined) {
-            d3.select("#vis4-no-data-msg-1")
+            svg.select("#vis4-no-data-msg-1")
                 .transition()
                 .text("There are no HE providers " + "in " + (country == "All" ? "the UK" : country))
                 .style("opacity", 1);
-            d3.select("#vis4-no-data-msg-2")
+            svg.select("#vis4-no-data-msg-2")
                 .transition()
                 .text("which have " + (sex == "Other" ? "other-sex" : sex.toLowerCase()))
                 .style("opacity", 1);
-            d3.select("#vis4-no-data-msg-3")
+            svg.select("#vis4-no-data-msg-3")
                 .transition()
                 .text((level == "All" ? "HE" : level == "All undergraduate" ? "undergraduate" : "postgraduate") + " students in academic year 2018/19.")
                 .style("opacity", 1);
-            d3.select("#vis4-no-data-msg-4")
+            svg.select("#vis4-no-data-msg-4")
                 .transition()
                 .style("opacity", 1);
-            d3.select("#vis4-no-data-msg-5")
+            svg.select("#vis4-no-data-msg-5")
                 .transition()
                 .style("opacity", 1);
         } else {
-            d3.select("#vis4-no-data-msg-1").transition().style("opacity", 0);
-            d3.select("#vis4-no-data-msg-2").transition().style("opacity", 0);
-            d3.select("#vis4-no-data-msg-3").transition().style("opacity", 0);
-            d3.select("#vis4-no-data-msg-4").transition().style("opacity", 0);
-            d3.select("#vis4-no-data-msg-5").transition().style("opacity", 0);
+            svg.select("#vis4-no-data-msg-1").transition().style("opacity", 0);
+            svg.select("#vis4-no-data-msg-2").transition().style("opacity", 0);
+            svg.select("#vis4-no-data-msg-3").transition().style("opacity", 0);
+            svg.select("#vis4-no-data-msg-4").transition().style("opacity", 0);
+            svg.select("#vis4-no-data-msg-5").transition().style("opacity", 0);
         }
 
         if (maxDomainY > 10) {
@@ -313,10 +318,6 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
             })
             .attr("opacity", 0)
             .on("mouseover", function (d, i) {
-                var subjectArea = d['Subject Area'].slice(4);
-                if (subjectArea.indexOf("&") != -1 && subjectArea.length > 25) {
-                    subjectArea = subjectArea.slice(0, subjectArea.indexOf("&") + 1) + "<br/>" + subjectArea.slice(subjectArea.indexOf("&") + 2)
-                }
                 var percentDisplay = parseFloat(d['Avg. yby % change of ' + sex]).toFixed(2);
                 if (y_Scale.domain()[1] < 0.3) {
                     percentDisplay = parseFloat(d['Avg. yby % change of ' + sex]).toFixed(3);
@@ -324,18 +325,18 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
-                tooltip.html("<span class='important-figure'>" + subjectArea + "<br/>" +
+                tooltip.html("<span class='important-figure'>" + d['Subject Area'].slice(4) + " : " +
                     percentDisplay + "%</span><br/><br/>" +
-                    "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject<br/>" +
-                    "areas which saw the most positive<br/>" +
-                    "average change per year in the<br/>" +
+                    "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
+                    "areas which saw the most positive " +
+                    "average change per year in the " +
                     "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
-                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b><br/>" +
+                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> " +
                     "students in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
                     "<hr class='line-hr-tooltip'>" +
-                    "<b>Percentage of " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " students<br/>" +
-                    "among all " + (level == "All" ? "HE" : level.toLowerCase().slice(4)) + " students<br/>" +
-                    "who studied this subject<br/>" +
+                    "<b>Percentage of " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " students " +
+                    "among all " + (level == "All" ? "HE" : level.toLowerCase().slice(4)) + " students " +
+                    "who studied this subject " +
                     "in " + (country == "All" ? "the UK" : country) + "</b><ul>" +
                     "<li>2014/15 : " + parseFloat(d[sex + ' (%) 2014/15']).toFixed(2) + "%</li>" +
                     "<li>2015/16 : " + parseFloat(d[sex + ' (%) 2015/16']).toFixed(2) + "%</li>" +
@@ -417,10 +418,6 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
             })
             .attr("opacity", 0)
             .on("mouseover", function (d, i) {
-                var subjectArea = d['Subject Area'].slice(4);
-                if (subjectArea.indexOf("&") != -1 && subjectArea.length > 25) {
-                    subjectArea = subjectArea.slice(0, subjectArea.indexOf("&") + 1) + "<br/>" + subjectArea.slice(subjectArea.indexOf("&") + 2)
-                }
                 var percentDisplay = parseFloat(d['Avg. yby % change of ' + sex]).toFixed(2);
                 if (y_Scale.domain()[1] < 0.3) {
                     percentDisplay = parseFloat(d['Avg. yby % change of ' + sex]).toFixed(3);
@@ -428,18 +425,18 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
-                tooltip.html("<span class='important-figure'>" + subjectArea + "<br/>" +
+                tooltip.html("<span class='important-figure'>" + d['Subject Area'].slice(4) + " : " +
                     percentDisplay + "%</span><br/><br/>" +
-                    "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject<br/>" +
-                    "areas which saw the most positive<br/>" +
-                    "average change per year in the<br/>" +
+                    "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
+                    "areas which saw the most positive " +
+                    "average change per year in the " +
                     "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
-                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b><br/>" +
+                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> " +
                     "students in <b>" + (country == "All" ? "the UK" : country) + "</b>" +
                     "<hr class='line-hr-tooltip'>" +
-                    "<b>Percentage of " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " students<br/>" +
-                    "among all " + (level == "All" ? "HE" : level.toLowerCase().slice(4)) + " students<br/>" +
-                    "who studied this subject<br/>" +
+                    "<b>Percentage of " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " students " +
+                    "among all " + (level == "All" ? "HE" : level.toLowerCase().slice(4)) + " students " +
+                    "who studied this subject " +
                     "in " + (country == "All" ? "the UK" : country) + "</b><ul>" +
                     "<li>2014/15 : " + parseFloat(d[sex + ' (%) 2014/15']).toFixed(2) + "%</li>" +
                     "<li>2015/16 : " + parseFloat(d[sex + ' (%) 2015/16']).toFixed(2) + "%</li>" +

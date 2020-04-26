@@ -30,8 +30,13 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         level = levelDropdown.options[levelDropdown.selectedIndex].value;
         var countryDropdown = document.getElementById('countries-3');
         country = countryDropdown.options[countryDropdown.selectedIndex].value;
-        var sexDropdown = document.getElementById('sex-3');
-        sex = sexDropdown.options[sexDropdown.selectedIndex].value;
+
+        var sexRadioBtn = document.getElementsByName('sex-3');
+        for (i = 0; i < sexRadioBtn.length; i++) {
+            if (sexRadioBtn[i].checked) {
+                sex = sexRadioBtn[i].value;
+            }
+        }
 
         update();
     });
@@ -194,22 +199,22 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         });
 
         if (maxDomainY == 0 || maxDomainY == undefined) {
-            d3.select("#vis3-no-data-msg-1")
+            svg.select("#vis3-no-data-msg-1")
                 .transition()
                 .text("There are no HE providers " + "in " + (country == "All" ? "the UK" : country))
                 .style("opacity", 1);
-            d3.select("#vis3-no-data-msg-2")
+            svg.select("#vis3-no-data-msg-2")
                 .transition()
                 .text("which have " + (sex == "Other" ? "other-sex" : sex.toLowerCase()))
                 .style("opacity", 1);
-            d3.select("#vis3-no-data-msg-3")
+            svg.select("#vis3-no-data-msg-3")
                 .transition()
                 .text((level == "All" ? "HE" : level == "All undergraduate" ? "undergraduate" : "postgraduate") + " students")
                 .style("opacity", 1);
         } else {
-            d3.select("#vis3-no-data-msg-1").transition().style("opacity", 0);
-            d3.select("#vis3-no-data-msg-2").transition().style("opacity", 0);
-            d3.select("#vis3-no-data-msg-3").transition().style("opacity", 0);
+            svg.select("#vis3-no-data-msg-1").transition().style("opacity", 0);
+            svg.select("#vis3-no-data-msg-2").transition().style("opacity", 0);
+            svg.select("#vis3-no-data-msg-3").transition().style("opacity", 0);
         }
 
         if (maxDomainY > 10) {
@@ -268,19 +273,14 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
             })
             .attr("opacity", 0)
             .on("mouseover", function (d, i) {
-                var subjectArea = d['Subject Area'].slice(4);
-                if (subjectArea.indexOf("&") != -1 && subjectArea.length > 25) {
-                    subjectArea = subjectArea.slice(0, subjectArea.indexOf("&")+1) + "<br/>" + subjectArea.slice(subjectArea.indexOf("&")+2)
-                }
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
-                tooltip.html("<span class='important-figure'>"+ subjectArea + "<br/>" +parseFloat(d[sex + ' (%)']).toFixed(2) + "%</span><br/><br/>" +
-                    "it stood in the <b>"+textRank[(i+1)]+" rank</b> of<br/>" +
-                    "subject area which had the largest<br/>" +
-                    "percentage of number of<br/>"+
+                tooltip.html("<span class='important-figure'>"+ d['Subject Area'].slice(4) + " : " +parseFloat(d[sex + ' (%)']).toFixed(2) + "%</span><br/><br/>" +
+                    "it stood in the <b>"+textRank[(i+1)]+" rank</b> of subject area "+
+                    "which had the largest percentage of number of " +
                     "<b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
-                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students<br/>" +
+                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students " +
                     "in <b>"+ (country == "All" ? "the UK" : country) + "</b>");
                 tooltip.style("left", (d3.event.pageX)+15 + "px")
                     .style("top", (d3.event.pageY)-75 + "px")
@@ -354,19 +354,14 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
             })
             .attr("opacity", 0)
             .on("mouseover", function (d, i) {
-                var subjectArea = d['Subject Area'].slice(4);
-                if (subjectArea.indexOf("&") != -1 && subjectArea.length > 25) {
-                    subjectArea = subjectArea.slice(0, subjectArea.indexOf("&")+1) + "<br/>" + subjectArea.slice(subjectArea.indexOf("&")+2)
-                }
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
-                tooltip.html("<span class='important-figure'>"+ subjectArea + "<br/>" +parseFloat(d[sex + ' (%)']).toFixed(2) + "%</span><br/><br/>" +
-                    "it stood in the <b>"+textRank[(i+1)]+" rank</b> of<br/>" +
-                    "subject area with the largest<br/>" +
-                    "percentage of number of<br/>"+
+                tooltip.html("<span class='important-figure'>"+ d['Subject Area'].slice(4) + " : " +parseFloat(d[sex + ' (%)']).toFixed(2) + "%</span><br/><br/>" +
+                    "it stood in the <b>"+textRank[(i+1)]+" rank</b> of subject area "+
+                    "which had the largest percentage of number of " +
                     "<b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
-                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students<br/>" +
+                    (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students " +
                     "in <b>"+ (country == "All" ? "the UK" : country) + "</b>");
                 tooltip.style("left", (d3.event.pageX)+15 + "px")
                     .style("top", (d3.event.pageY)-75 + "px")
