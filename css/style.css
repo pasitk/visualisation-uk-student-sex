@@ -249,6 +249,18 @@ div.tooltip-frame {
   margin-right: 1em;
 }
 
+#england-label {
+  margin-right: 1.35em;
+}
+
+#scotland-label {
+  margin-right: 1em;
+}
+
+.country-choice {
+  color: #666666;
+}
+
 @media only screen and (max-device-width: 850px) {
   body {
     font-size: 20px;

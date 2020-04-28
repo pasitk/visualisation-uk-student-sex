@@ -19,10 +19,10 @@ var formatNumber = d3.format(",.0f"), // zero decimal places
     },
     // color = d3.scaleOrdinal(d3.schemeCategory10);
     colorChart1 = {
-        "England" : "#186A3B",
-        "Scotland" : "#239B56",
-        "Wales" : "#27AE60",
-        "Northern Ireland" : "#82E0AA",
+        "England": "#186A3B",
+        "Scotland": "#239B56",
+        "Wales": "#27AE60",
+        "Northern Ireland": "#82E0AA",
         "Female": "#ffa372",
         "Male": "#0f4c81",
         "Other": "#999999"
@@ -123,14 +123,14 @@ topic2.append("tspan")
 
 
 /*
-*   Sankey diagram with multiple value columns and transition
-*   This code was adapted from examples on blockbuilder.org and stackoverflow.com
-*   accessed 20-04-2020
-*   https://blockbuilder.org/SpaceActuary/2a46e03eb7b7e05f48e6251054501244
-*   https://stackoverflow.com/questions/13603832/sankey-diagram-transition
-*   Change code by adjust style and appearance of Sankey Diagram
-*   Add tooltip to describe more detail about data, Add transition effect when user change new option to filter data.
-*/
+ *   Sankey diagram with multiple value columns and transition
+ *   This code was adapted from examples on blockbuilder.org and stackoverflow.com
+ *   accessed 20-04-2020
+ *   https://blockbuilder.org/SpaceActuary/2a46e03eb7b7e05f48e6251054501244
+ *   https://stackoverflow.com/questions/13603832/sankey-diagram-transition
+ *   Change code by adjust style and appearance of Sankey Diagram
+ *   Add tooltip to describe more detail about data, Add transition effect when user change new option to filter data.
+ */
 
 // Set the sankey diagram properties
 var sankey = d3.sankey()
@@ -141,12 +141,12 @@ var sankey = d3.sankey()
 var path = sankey.link();
 
 /*
-*   Tooltip 1st Part
-*   This code was adapted from an example on bl.ocks.org
-*   accessed 20-04-2020
-*   https://bl.ocks.org/tiffylou/88f58da4599c9b95232f5c89a6321992
-*   Change code by adjust how to display and style
-*/
+ *   Tooltip 1st Part
+ *   This code was adapted from an example on bl.ocks.org
+ *   accessed 20-04-2020
+ *   https://bl.ocks.org/tiffylou/88f58da4599c9b95232f5c89a6321992
+ *   Change code by adjust how to display and style
+ */
 
 var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip-frame")
@@ -168,6 +168,38 @@ var swap = function (array, posX, posY) {
     array[posX] = array[posY];
     array[posY] = temp;
 };
+
+function checkShowHide() {
+    var allCheckBox = document.getElementsByName("country-1");
+    var checkAll = true;
+    allCheckBox.forEach((checkbox) => {
+        if (checkbox.checked == true) {
+            d3.select("#node-" + checkbox.value)
+                .attr("display", "inline");
+            d3.selectAll(".link-" + checkbox.value)
+                .attr("display", "inline");
+        } else {
+            d3.select("#node-" + checkbox.value)
+                .attr("display", "none");
+            d3.selectAll(".link-" + checkbox.value)
+                .attr("display", "none");
+            checkAll = false;
+        }
+    })
+
+    var sex = ['Female','Male','Other'];
+    if (!checkAll) {
+        sex.forEach((eachsex) => {
+            d3.select("#node-"+eachsex+" .rect-value").attr("display", "none");
+            d3.select("#node-"+eachsex+" .rect-label").attr("dy", "0.3em");
+        })
+    } else {
+        sex.forEach((eachsex) => {
+            d3.select("#node-"+eachsex+" .rect-value").attr("display", "block");
+            d3.select("#node-"+eachsex+" .rect-label").attr("dy", "-0.2em");
+        })
+    }
+}
 
 d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
     if (error) throw error;
@@ -238,18 +270,22 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         .layout(0);
 
     /*
-    *   Tooltip 2nd Part
-    *   This code was adapted from an example on bl.ocks.org
-    *   accessed 20-04-2020
-    *   https://bl.ocks.org/tiffylou/88f58da4599c9b95232f5c89a6321992
-    *   Change code by adjust how to display, data and style
-    */
+     *   Tooltip 2nd Part
+     *   This code was adapted from an example on bl.ocks.org
+     *   accessed 20-04-2020
+     *   https://bl.ocks.org/tiffylou/88f58da4599c9b95232f5c89a6321992
+     *   Change code by adjust how to display, data and style
+     */
     var link = svg.append("g").selectAll(".link")
         .data(graph.links)
         .enter().append("path")
-        .attr("class", "link")
+        .attr("class", function (d) {
+            return "link link-" + d.source.name.replace(" ", "");
+        })
+        .attr("id", function (d) {
+            return "link-" + d.source.name.replace(" ", "") + "-" + d.target.name.replace(" ", "");
+        })
         .style("fill", function (d) {
-            // console.log(d);
             return "#999999";
         })
         .style("fill-opacity", function (d) {
@@ -280,7 +316,7 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
                 d.source.sourceLinks.forEach(function (link) {
                     totalNum += parseInt(link.value);
                 });
-                
+
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
@@ -304,6 +340,9 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         .data(graph.nodes)
         .enter().append("g")
         .attr("class", "node")
+        .attr("id", function (d) {
+            return "node-" + d.name.replace(" ", "");
+        })
         .attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         })
@@ -327,11 +366,6 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         })
         .style("stroke", function (d) {
             return d3.rgb(colorChart1[d.name]);
-        })
-        .append("title")
-        .text(function (d) {
-            // console.log(d)
-            return d.name + "\n" + format(d.value);
         });
 
     // add in the title for the nodes
@@ -343,6 +377,7 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         .attr("dy", "-0.2em")
         .attr("text-anchor", "start")
         .attr("transform", null)
+        .attr("class", "rect-label")
         .text(function (d) {
             if (d.name != "Northern Ireland") {
                 return d.name;
@@ -405,9 +440,14 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         svg.selectAll(".link")
             .data(graph.links)
             .attr("d", path)
+            .attr("class", function (d) {
+                return "link link-" + d.source.name.replace(" ", "");
+                // return "link-" + i;
+            })
             .attr("id", function (d, i) {
                 d.id = i;
-                return "link-" + i;
+                return "link-" + d.source.name.replace(" ", "") + "-" + d.target.name.replace(" ", "");
+                // return "link-" + i;
             })
             .style("stroke-width", function (d) {
                 if (d.value == 0) {
@@ -418,7 +458,8 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
             })
             .sort(function (a, b) {
                 return b.dy - a.dy;
-            });
+            })
+            .call(checkShowHide);
 
         svg.selectAll(".node").attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
@@ -432,15 +473,14 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
         svg.selectAll(".rect-value")
             .transition()
             .duration(200)
-            .attr("fill-opacity",0.25)
+            .attr("fill-opacity", 0.25)
             .transition()
             .text(function (d) {
                 return formatNumber(d.value);
             })
             .transition()
             .duration(200)
-            .attr("fill-opacity",1);
-            
+            .attr("fill-opacity", 1);
     };
 
     // the function for moving the nodes

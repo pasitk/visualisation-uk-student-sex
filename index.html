@@ -23,7 +23,9 @@
         <div class="vis-name">Sex of Higher Education (HE) Students in the UK : Academic Year 2018/19</div>
         <div class="vis-description">Data source: The UK's Higher Education Statistics Agency (HESA)</div>
         <div class="content-page">
-            <div class="remark">Remarks: From HESA's definition, the term 'other-sex students' means students whose sex aligns with terms such as intersex, androgyne, intergender, ambigender, gender fluid, polygender and gender queer.</div>
+            <div class="remark">Remarks: From HESA's definition, the term 'other-sex students' means students whose sex
+                aligns with terms such as intersex, androgyne, intergender, ambigender, gender fluid, polygender and
+                gender queer.</div>
         </div>
     </header>
     <div class="content-page">
@@ -32,7 +34,8 @@
                 Overall
             </div>
             <div class="sub-instruction">
-                Let's select the students' level of study. Then let's see the chart on the right-hand side that, in each country in the UK, how many female, male, and other-sex students were there?
+                Let's select the students' level of study. Then let's see the chart on the right-hand side that, in each
+                country in the UK, how many female, male, and other-sex students were there?
             </div>
         </div>
         <div class="right">
@@ -46,6 +49,21 @@
                         <option value="All undergraduate">Undergraduate</option>
                         <option value="All postgraduate">Postgraduate</option>
                     </select>
+                </div>
+            </div>
+            <div class="options">
+                <div class="label">
+                    <label>Show data in</label>
+                </div>
+                <div class="selector">
+                    <input type="checkbox" id="England-1" name="country-1" value="England" checked onclick="checkShowHide()">
+                    <label class="country-choice" id="england-label" for="England-1"> England</label>
+                    <input type="checkbox" id="Wales-1" name="country-1" value="Wales" checked onclick="checkShowHide()">
+                    <label class="country-choice" id="wales-label" for="Wales-1"> Wales</label><br>
+                    <input type="checkbox" id="Scotland-1" name="country-1" value="Scotland" checked onclick="checkShowHide()">
+                    <label class="country-choice" id="scotland-label" for="Scotland-1"> Scotland</label>
+                    <input type="checkbox" id="NorthernIreland-1" name="country-1" value="NorthernIreland" checked onclick="checkShowHide()">
+                    <label class="country-choice" id="northernIreland-label" for="NorthernIreland-1"> Northern Ireland</label>
                 </div>
             </div>
             <div id="sankey">
@@ -62,11 +80,16 @@
                 in each HE provider? (filtered by country and level of study) -->
             </div>
             <div class="sub-instruction">
-                <div>Let's select the level of study, country of HE provider, and sex of students. Then the chart on the right-hand side will display how many HE providers (only in selected country) did their proportion of students in level and sex chosen fall into each percentage interval. (from 100% of students in the same HE provider and same level)</div>
+                <div>Let's select the level of study, country of HE provider, and sex of students. Then the chart on the
+                    right-hand side will display how many HE providers (only in selected country) did their proportion
+                    of students in level and sex chosen fall into each percentage interval. (from 100% of students in
+                    the same HE provider and same level)</div>
             </div>
             <div class="sub-instruction">
                 <div class="remark" id="example-chart-2">
-                    <span id="example-chart-instruction">Then, let's click on a bar in the chart. This box will list the name of HE providers in selected country, which had the percentage of students in chosen sex (and chosen level) fell into each interval.</i>
+                    <span id="example-chart-instruction">Then, let's click on a bar in the chart. This box will list the
+                        name of HE providers in selected country, which had the percentage of students in chosen sex
+                        (and chosen level) fell into each interval.</i>
                 </div>
             </div>
         </div>
@@ -102,7 +125,8 @@
                     <label for="sex-2">Sex</label>
                 </div>
                 <div class="selector">
-                    <input type="radio" id="female-2" name="sex-2" value="Female" checked="true" onclick="redrawChart2()">
+                    <input type="radio" id="female-2" name="sex-2" value="Female" checked="true"
+                        onclick="redrawChart2()">
                     <label class="female" for="female-2">Female</label>
                     <input type="radio" id="male-2" name="sex-2" value="Male" onclick="redrawChart2()">
                     <label class="male" for="male-2">Male</label>
@@ -120,7 +144,9 @@
                 Top 5 subject areas which have the highest percentage of students in each sex
             </div>
             <div class="sub-instruction">
-                <div>Let's select the students' level of study, country of HE provider, and sex. Then the chart on the right-hand side will display the top 5 subject areas which have the highest percentage of students in the selected sex among all subject areas in the same level and country.
+                <div>Let's select the students' level of study, country of HE provider, and sex. Then the chart on the
+                    right-hand side will display the top 5 subject areas which have the highest percentage of students
+                    in the selected sex among all subject areas in the same level and country.
                 </div>
             </div>
         </div>
@@ -156,7 +182,8 @@
                     <label for="sex-3">Sex</label>
                 </div>
                 <div class="selector">
-                    <input type="radio" id="female-3" name="sex-3" value="Female" checked="true" onclick="redrawChart3()">
+                    <input type="radio" id="female-3" name="sex-3" value="Female" checked="true"
+                        onclick="redrawChart3()">
                     <label class="female" for="female-3">Female</label>
                     <input type="radio" id="male-3" name="sex-3" value="Male" onclick="redrawChart3()">
                     <label class="male" for="male-3">Male</label>
@@ -171,14 +198,20 @@
     <div class="content-page">
         <div class="left">
             <div class="instruction">
-                Top subject areas which saw the most positive average change per year in the percentage of students in each sex, over five years.
+                Top subject areas which saw the most positive average change per year in the percentage of students in
+                each sex, over five years.
             </div>
             <div class="sub-instruction">
-                <div>Let's select the students' level of study, country of HE provider, and sex. Then the chart on the right-hand side will display top subject areas which saw the most positive average change per year in the percentage of students in selected sex (among all subject areas in the same level and country). These average values were calculated from five academic years, 2014/15 to 2018/19.
-                    <br/><br/>
+                <div>Let's select the students' level of study, country of HE provider, and sex. Then the chart on the
+                    right-hand side will display top subject areas which saw the most positive average change per year
+                    in the percentage of students in selected sex (among all subject areas in the same level and
+                    country). These average values were calculated from five academic years, 2014/15 to 2018/19.
+                    <br /><br />
                 </div>
                 <div class="remark" id="remark-chart-4">
-                    Remark: In some criteria, there were less than five subject areas (from all 19 subject areas) which saw positive average change in the percentage of students, which means the other subject areas remained saw negative average change.
+                    Remark: In some criteria, there were less than five subject areas (from all 19 subject areas) which
+                    saw positive average change in the percentage of students, which means the other subject areas
+                    remained saw negative average change.
                 </div>
             </div>
         </div>
@@ -214,7 +247,8 @@
                     <label for="sex-4">Sex</label>
                 </div>
                 <div class="selector">
-                    <input type="radio" id="female-4" name="sex-4" value="Female" checked="true" onclick="redrawChart4()">
+                    <input type="radio" id="female-4" name="sex-4" value="Female" checked="true"
+                        onclick="redrawChart4()">
                     <label class="female" for="female-4">Female</label>
                     <input type="radio" id="male-4" name="sex-4" value="Male" onclick="redrawChart4()">
                     <label class="male" for="male-4">Male</label>
