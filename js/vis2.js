@@ -297,7 +297,7 @@ d3.csv('dataset/gender-by-provider.csv', function (data) {
                     .duration(200)
                     .style("opacity", 1);
                 tooltip.html("There " + (d.length == 1 ? "is " : "are ") + "<b>" + d.length + "</b> HE provider" + (d.length == 1 ? "" : "s") + " in <b>" + (country == "All" ? "the UK" : country) + "</b> " +
-                    "which <b>" + d.x0 + "-" + d.x1 + "%</b> of " + (d.length == 1 ? "its " : "their ") +
+                    "of which <b>" + d.x0 + "-" + d.x1 + "%</b> of " + (d.length == 1 ? "its " : "their ") +
                     "<b>" + (level == "All" ? "all HE" : level.toLowerCase()) + "</b> students " +
                     "are <b>" + (sex == "Other" ? "other-sex students" : sex.toLowerCase()) + "</b><br/><br/>" +
                     "<i>Click to see the names of<br/>HE providers in this group.</i>"

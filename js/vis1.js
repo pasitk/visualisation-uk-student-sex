@@ -322,8 +322,8 @@ d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
-                tooltip.html("<b>" + formatNumber(d.value) + " students</b> " +
-                    "or equals <b>" + formatTwoDecimalPlaces(d.value / totalNum * 100) + "%</b> of <b>" + startingAllocationText + "</b> students in <b>" + d.source.name + "</b> answered that they are <b>" + (d.target.name == "Other" ? "other-sex" : d.target.name.toLowerCase()) + "</b> students");
+                tooltip.html("<b>" + formatNumber(d.value) + " students,</b> " +
+                    "equals to <b>" + formatTwoDecimalPlaces(d.value / totalNum * 100) + "%</b> of <b>" + startingAllocationText + "</b> students in <b>" + d.source.name + "</b> answered that they are <b>" + (d.target.name == "Other" ? "other-sex" : d.target.name.toLowerCase()) + "</b> students");
                 tooltip.style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px")
                     .style("font-size", "0.8em");

@@ -153,7 +153,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .style("fill", "red")
         .style("opacity", 0)
         .text(function (d) {
-            return "There are no HE providers in your selected country";
+            return "There are no subject areas which saw positive";
         })
 
     noDataMsg.append("tspan")
@@ -166,7 +166,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .style("fill", "red")
         .style("opacity", 0)
         .text(function (d) {
-            return "which have students in your selected sex";
+            return "average change per year in the";
         })
 
     noDataMsg.append("tspan")
@@ -179,7 +179,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .style("fill", "red")
         .style("opacity", 0)
         .text(function (d) {
-            return "and level of study in academic year 2018/19.";
+            return "percentage of students in this group,";
         })
 
     noDataMsg.append("tspan")
@@ -192,7 +192,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .style("fill", "red")
         .style("opacity", 0)
         .text(function (d) {
-            return "So, the average of change in percentage of";
+            return "or there are no students in this group in some years.";
         })
 
     noDataMsg.append("tspan")
@@ -205,7 +205,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .style("fill", "red")
         .style("opacity", 0)
         .text(function (d) {
-            return "students in this group could not be calculated.";
+            return "So, the data could not be displayed.";
         })
     /*
      *   Tooltip 1st Part
@@ -235,18 +235,20 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
             return d['Avg. yby % change of ' + sex];
         });
 
+        console.log(maxDomainY);
+
         if (maxDomainY == undefined) {
             svg.select("#vis4-no-data-msg-1")
                 .transition()
-                .text("There are no HE providers " + "in " + (country == "All" ? "the UK" : country))
+                // .text("There are no HE providers " + "in " + (country == "All" ? "the UK" : country))
                 .style("opacity", 1);
             svg.select("#vis4-no-data-msg-2")
                 .transition()
-                .text("which have " + (sex == "Other" ? "other-sex" : sex.toLowerCase()))
+                // .text("which have " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " "+ (level == "All" ? "HE" : level == "All undergraduate" ? "undergraduate" : "postgraduate") + " students")
                 .style("opacity", 1);
             svg.select("#vis4-no-data-msg-3")
                 .transition()
-                .text((level == "All" ? "HE" : level == "All undergraduate" ? "undergraduate" : "postgraduate") + " students in academic year 2018/19.")
+                // .text("in academic year 2018/19.")
                 .style("opacity", 1);
             svg.select("#vis4-no-data-msg-4")
                 .transition()
@@ -327,7 +329,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                     .style("opacity", 1);
                 tooltip.html("<span class='important-figure'>" + d['Subject Area'].slice(4) + " : " +
                     percentDisplay + "%</span><br/><br/>" +
-                    "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
+                    "This stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
                     "areas which saw the most positive " +
                     "average change per year in the " +
                     "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
@@ -427,7 +429,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                     .style("opacity", 1);
                 tooltip.html("<span class='important-figure'>" + d['Subject Area'].slice(4) + " : " +
                     percentDisplay + "%</span><br/><br/>" +
-                    "it stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
+                    "This stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
                     "areas which saw the most positive " +
                     "average change per year in the " +
                     "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
