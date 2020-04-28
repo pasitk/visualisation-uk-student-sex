@@ -121,6 +121,38 @@ topic2.append("tspan")
         return "each sex";
     })
 
+function checkShowHide() {
+    var allCheckBox = document.getElementsByName("country-1");
+    var checkAll = true;
+    allCheckBox.forEach((checkbox) => {
+        if (checkbox.checked == true) {
+            d3.select("#node-" + checkbox.value)
+                .attr("display", "inline");
+            d3.selectAll(".link-" + checkbox.value)
+                .attr("display", "inline");
+        } else {
+            d3.select("#node-" + checkbox.value)
+                .attr("display", "none");
+            d3.selectAll(".link-" + checkbox.value)
+                .attr("display", "none");
+            checkAll = false;
+        }
+    })
+
+    var sex = ['Female', 'Male', 'Other'];
+    if (!checkAll) {
+        sex.forEach((eachsex) => {
+            d3.select("#node-" + eachsex + " .rect-value").attr("display", "none");
+            d3.select("#node-" + eachsex + " .rect-label").attr("dy", "0.3em");
+        })
+    } else {
+        sex.forEach((eachsex) => {
+            d3.select("#node-" + eachsex + " .rect-value").attr("display", "block");
+            d3.select("#node-" + eachsex + " .rect-label").attr("dy", "-0.2em");
+        })
+    }
+}
+
 
 /*
  *   Sankey diagram with multiple value columns and transition
@@ -130,6 +162,8 @@ topic2.append("tspan")
  *   https://stackoverflow.com/questions/13603832/sankey-diagram-transition
  *   Change code by adjust style and appearance of Sankey Diagram
  *   Add tooltip to describe more detail about data, Add transition effect when user change new option to filter data.
+ *   But the function 'checkShowHide' above which allow user to choose the countries they want to see data (filtering) 
+ *   is not included in this reference, because I wrote it by myself.
  */
 
 // Set the sankey diagram properties
@@ -168,38 +202,6 @@ var swap = function (array, posX, posY) {
     array[posX] = array[posY];
     array[posY] = temp;
 };
-
-function checkShowHide() {
-    var allCheckBox = document.getElementsByName("country-1");
-    var checkAll = true;
-    allCheckBox.forEach((checkbox) => {
-        if (checkbox.checked == true) {
-            d3.select("#node-" + checkbox.value)
-                .attr("display", "inline");
-            d3.selectAll(".link-" + checkbox.value)
-                .attr("display", "inline");
-        } else {
-            d3.select("#node-" + checkbox.value)
-                .attr("display", "none");
-            d3.selectAll(".link-" + checkbox.value)
-                .attr("display", "none");
-            checkAll = false;
-        }
-    })
-
-    var sex = ['Female','Male','Other'];
-    if (!checkAll) {
-        sex.forEach((eachsex) => {
-            d3.select("#node-"+eachsex+" .rect-value").attr("display", "none");
-            d3.select("#node-"+eachsex+" .rect-label").attr("dy", "0.3em");
-        })
-    } else {
-        sex.forEach((eachsex) => {
-            d3.select("#node-"+eachsex+" .rect-value").attr("display", "block");
-            d3.select("#node-"+eachsex+" .rect-label").attr("dy", "-0.2em");
-        })
-    }
-}
 
 d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
     if (error) throw error;
