@@ -224,6 +224,10 @@ div.tooltip-frame {
   white-space: normal;
 }
 
+#remark-header {
+  text-align: left;
+}
+
 .important-figure {
   font-size: 1.25vw;
   font-weight: bold;
