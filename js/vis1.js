@@ -19,10 +19,10 @@ var formatNumber = d3.format(",.0f"), // zero decimal places
     },
     // color = d3.scaleOrdinal(d3.schemeCategory10);
     colorChart1 = {
-        "England": "#186A3B",
-        "Scotland": "#239B56",
-        "Wales": "#27AE60",
-        "Northern Ireland": "#82E0AA",
+        "England": "#335037",
+        "Scotland": "#517F58",
+        "Wales": "#6BB071",
+        "Northern Ireland": "#B2DDA5",
         "Female": "#ffa372",
         "Male": "#0f4c81",
         "Other": "#999999"
