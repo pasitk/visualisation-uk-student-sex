@@ -326,7 +326,7 @@ d3.csv('dataset/gender-by-provider.csv', function (data) {
 
                 var allProviderText = "<span class='provider-header'>" +
                     "HE provider" + (allProvider.length == 1 ? "" : "s") + " in " +
-                    (country == "All" ? "the UK" : country) + " which " + d.x0 + "-" + d.x1 + "%</b> of their " +
+                    (country == "All" ? "the UK" : country) + " in which " + d.x0 + "-" + d.x1 + "%</b> of their " +
                     (level == "All" ? "all HE" : level.toLowerCase()) + "</b> students are " + (sex == "Other" ? "other-sex" : sex.toLowerCase()) +
                     "</span><br/><br/>" + allProvider.join(" | ");
                 d3.select("#example-chart-2").html(allProviderText);

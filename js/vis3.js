@@ -277,8 +277,8 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                     .duration(200)
                     .style("opacity", 1);
                 tooltip.html("<span class='important-figure'>"+ d['Subject Area'].slice(4) + " : " +parseFloat(d[sex + ' (%)']).toFixed(2) + "%</span><br/><br/>" +
-                    "This stood in the <b>"+textRank[(i+1)]+" rank</b> of subject area "+
-                    "which had the largest percentage of number of " +
+                    "This ranked <b>"+textRank[(i+1)]+"</b> in the subject area "+
+                    "which had the largest percentage of " +
                     "<b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
                     (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students " +
                     "in <b>"+ (country == "All" ? "the UK" : country) + "</b>");
@@ -358,8 +358,8 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                     .duration(200)
                     .style("opacity", 1);
                 tooltip.html("<span class='important-figure'>"+ d['Subject Area'].slice(4) + " : " +parseFloat(d[sex + ' (%)']).toFixed(2) + "%</span><br/><br/>" +
-                    "This stood in the <b>"+textRank[(i+1)]+" rank</b> of subject area "+
-                    "which had the largest percentage of number of " +
+                    "This ranked <b>"+textRank[(i+1)]+"</b> in the subject area "+
+                    "which had the largest percentage of " +
                     "<b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
                     (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> students " +
                     "in <b>"+ (country == "All" ? "the UK" : country) + "</b>");

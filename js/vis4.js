@@ -153,7 +153,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
         .style("fill", "red")
         .style("opacity", 0)
         .text(function (d) {
-            return "There are no subject areas which saw positive";
+            return "There are no subject areas which saw a positive";
         })
 
     noDataMsg.append("tspan")
@@ -329,8 +329,8 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                     .style("opacity", 1);
                 tooltip.html("<span class='important-figure'>" + d['Subject Area'].slice(4) + " : " +
                     percentDisplay + "%</span><br/><br/>" +
-                    "This stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
-                    "areas which saw the most positive " +
+                    "This ranked <b>"+textRank[(i+1)]+"</b> in the subject "+
+                    "area which saw the most positive " +
                     "average change per year in the " +
                     "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
                     (level == "All" ? "HE" : level.toLowerCase().slice(4)) + "</b> " +
@@ -429,7 +429,7 @@ d3.csv('dataset/gender-by-subject.csv', function (data) {
                     .style("opacity", 1);
                 tooltip.html("<span class='important-figure'>" + d['Subject Area'].slice(4) + " : " +
                     percentDisplay + "%</span><br/><br/>" +
-                    "This stood in the <b>" + textRank[(i + 1)] + " rank</b> of subject " +
+                    "This ranked <b>"+textRank[(i+1)]+"</b> in the subject "+
                     "areas which saw the most positive " +
                     "average change per year in the " +
                     "percentage of <b>" + (sex == "Other" ? "other-sex" : sex.toLowerCase()) + " " +
