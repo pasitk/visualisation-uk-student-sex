@@ -203,7 +203,7 @@ var swap = function (array, posX, posY) {
     array[posY] = temp;
 };
 
-d3.csv("dataset/sankey-sex-by-country-multi.csv", function (error, data) {
+d3.csv("dataset-and-analysis/sankey-sex-by-country-multi.csv", function (error, data) {
     if (error) throw error;
 
     swap(data, 3, 6);

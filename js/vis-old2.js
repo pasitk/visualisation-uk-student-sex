@@ -1,4 +1,4 @@
-d3.csv('dataset/dataset-2.csv', function (data) {
+d3.csv('dataset-and-analysis/dataset-2.csv', function (data) {
     // console.log(data);
     var destinationInput = document.getElementById("destination");
     var overAllConvertedData = processDomicilePercentageData(data, destinationInput.value, 2018);

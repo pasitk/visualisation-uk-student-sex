@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet">
+    <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.1.0/d3-annotation.min.js"></script>
+    <title>CMT218 Assignment 2</title>
+</head>
+
+<body id="body-index">
+    <header>
+        <div class="vis-name">Knowing Higher Education Students in the UK</div>
+        <div class="vis-description">Where are they from, and how popular is each subject area?</div>
+        <div class="year-slider">
+            <ul class="year-label">
+                <li>2014/15</li>
+                <li>2015/16</li>
+                <li>2016/17</li>
+                <li>2017/18</li>
+                <li>2018/19</li>
+            </ul>
+            <input type="range" class="slider" id="year" min="2014" max="2018" list="tickmarks" value="2018" step="1" onchange="redrawAll()">
+            <datalist id="tickmarks">
+                <option value="2014"></option>
+                <option value="2015"></option>
+                <option value="2016"></option>
+                <option value="2017"></option>
+                <option value="2018"></option>
+            </datalist>
+            <input type="hidden" id="destination" value="All" onchange="redrawAll()">
+        </div>
+    </header>
+    <div id="content-page">
+        <div class="mid">
+            <div>1. How many HE students in each country?</div>
+            <div id="overall">
+            </div>
+        </div>
+        <div class="left">
+            <div>2. Domicile group: Where are they from?</div>
+            <div id="domicileGroup">
+            </div>
+            <div style="margin-top: 50px;">3. Top countries for each domicile group</div>
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    <script src="js/vis0.js"></script>
+    <script src="js/vis-old1.js"></script>
+    <script src="js/vis-old2.js"></script>
+</body>
+
+</html>

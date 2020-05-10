@@ -1,4 +1,4 @@
-d3.csv('dataset/gender-by-provider.csv', function (data) {
+d3.csv('dataset-and-analysis/gender-by-provider.csv', function (data) {
     var level = "All";
     var country = "All";
     var sex = "Female";
